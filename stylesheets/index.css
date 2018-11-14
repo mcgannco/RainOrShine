@@ -15,3 +15,54 @@ span, article, footer, time, small {
   box-sizing: inherit;
   background: transparent;
 }
+
+html {
+  background: #232526; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #232526, #414345); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #232526, #414345); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+	min-height: 100% !important;
+  height: 100%;
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+body {
+	width: 100%;
+	margin: 0 auto;
+	font-family: serif;
+	font-size: 12px;
+	height: 100%;
+	overflow-x: hidden;
+	min-height: 100% !important;
+  height: 100%;
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+#root {
+	height: 100%;
+}
+
+#app {
+	height: 100%;
+	overflow: auto;
+	margin-bottom: 10px;
+}
+
+.nav-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid #505050;
+  background: #282828;
+}
+
+.nav-bar h1 {
+  color: white;
+  font-size: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.logo {
+  width: 5rem;
+  height: auto;
+}

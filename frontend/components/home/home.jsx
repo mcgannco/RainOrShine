@@ -16,11 +16,10 @@ class Home extends React.Component {
   }
 
   componentWillReceiveProps(props) {
-    if(props.weather !== this.state.weather) {
+    if(!this.state.weather || this.state.weather && props.weather.name !== this.state.weather.name) {
       this.setState({weather: props.weather})
     }
-
-    if(props.forecast !== this.state.forecast) {
+    if(!this.state.forecast && props.forecast.city || this.state.forecast && props.forecast.city.name !== this.state.forecast.city.name) {
       this.setState({forecast: props.forecast})
     }
   }
@@ -54,10 +53,27 @@ class Home extends React.Component {
 
 
   render() {
+
+    let weatherInfo;
+    let forecastInfo;
+
+    if(this.state.forecast) {
+
+    }
+
+    if(this.state.weather) {
+      debugger
+    }
         return(
           <div>
-            <h1>Hello</h1>
+            <div className="nav-bar">
+              <h1>Rain or Shine</h1>
+                <img className="logo" src="images/logo.png"></img>
+            </div>
+
+
           </div>
+
       )
     }
 }
