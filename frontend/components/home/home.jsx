@@ -5,10 +5,12 @@ class Home extends React.Component {
     super(props)
     this.state = {
       weather: null,
-      forecast: null
+      forecast: null,
+      temp: "far"
     }
     this.pollWeather = this.pollWeather.bind(this);
     this.toQueryString = this.toQueryString.bind(this);
+    this.convertTemp = this.convertTemp.bind(this);
   }
 
   componentDidMount() {
@@ -51,6 +53,12 @@ class Home extends React.Component {
     return parts.join('&');
   }
 
+  convertTemp(degrees) {
+    if(this.state.temp === "far") {
+      return Math.round(degrees * 9/5 - 459.67)
+    }
+  }
+
 
   render() {
 
@@ -62,7 +70,15 @@ class Home extends React.Component {
     }
 
     if(this.state.weather) {
-      debugger
+      weatherInfo = <div className="weather-container">
+        <span>
+          <h1>{this.state.weather.name}</h1>
+          <p>{this.state.weather.weather[0].main}</p>
+
+          <nav>{this.convertTemp(this.state.weather.main.temp)}°</nav>
+        </span>
+
+      </div>
     }
         return(
           <div>
@@ -70,6 +86,8 @@ class Home extends React.Component {
               <h1>Rain or Shine</h1>
                 <img className="logo" src="images/logo.png"></img>
             </div>
+
+            {weatherInfo}
 
 
           </div>

@@ -66,3 +66,38 @@ body {
   width: 5rem;
   height: auto;
 }
+
+.weather-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1.5rem;
+}
+
+.weather-container span {
+  background: green;
+  width: 98%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.weather-container h1 {
+  color: white;
+  font-size: 1.5rem;
+  margin-top: 1rem;
+  margin-bottom: 0.1rem;
+}
+
+.weather-container p {
+  color: white;
+  font-style: italic;
+  font-size: 1rem;
+  margin-bottom: 2rem;
+}
+
+.weather-container nav {
+  color: white;
+  font-size: 2rem;
+}
