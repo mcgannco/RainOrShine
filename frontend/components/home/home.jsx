@@ -71,12 +71,15 @@ class Home extends React.Component {
 
     if(this.state.weather) {
       weatherInfo = <div className="weather-container">
-        <span>
-          <h1>{this.state.weather.name}</h1>
-          <p>{this.state.weather.weather[0].main}</p>
+        <div className="weather-container-backgound">
+          <span className="snow">
+            <h1>{this.state.weather.name}</h1>
+            <p>{this.state.weather.weather[0].main}</p>
 
-          <nav>{this.convertTemp(this.state.weather.main.temp)}°</nav>
-        </span>
+            <nav>{this.convertTemp(this.state.weather.main.temp)}°</nav>
+          </span>
+        </div>
+
 
       </div>
     }
