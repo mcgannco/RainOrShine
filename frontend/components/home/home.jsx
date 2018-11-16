@@ -110,7 +110,7 @@ class Home extends React.Component {
             <nav>{this.convertTemp(this.state.weather.main.temp)}°</nav>
 
           <div className="date">
-            <h1>{this.getDayOfWeek()}</h1>
+            <h2>{this.getDayOfWeek()}</h2>
             <span>Today</span>
           </div>
           </span>
