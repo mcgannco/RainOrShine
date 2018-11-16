@@ -11,6 +11,9 @@ class Home extends React.Component {
     this.pollWeather = this.pollWeather.bind(this);
     this.toQueryString = this.toQueryString.bind(this);
     this.convertTemp = this.convertTemp.bind(this);
+    this.getMainBackground = this.getMainBackground.bind(this);
+    this.getDayLight = this.getDayLight.bind(this);
+    this.getDayOfWeek = this.getDayOfWeek.bind(this);
   }
 
   componentDidMount() {
@@ -59,24 +62,57 @@ class Home extends React.Component {
     }
   }
 
+  getMainBackground() {
+    let key = this.state.weather.weather[0].main
+    let hash = {"Clouds": "clouds",
+      "Snow": "snow",
+      "Rain": "rain"
+    }
+    if(hash[key]) {
+      return hash[key]
+    } else {
+      return "default"
+    }
+  }
+
+  getDayLight() {
+    return "daylight"
+  }
+
+  getDayOfWeek() {
+    let days = {0: "Sunday", 1: "Monday",
+    2: "Tuesday", 3: "Wednesday", 4: "Thursday", 5: "Friday", 6: "Saturday"}
+    let d = new Date();
+    let n = d.getDay();
+    return days[n];
+  }
+
 
   render() {
 
     let weatherInfo;
     let forecastInfo;
-
+    let mainBackground;
+    let daylight;
     if(this.state.forecast) {
 
     }
 
     if(this.state.weather) {
+      mainBackground = this.getMainBackground()
+      daylight = this.getDayLight()
       weatherInfo = <div className="weather-container">
-        <div className="weather-container-backgound">
-          <span className="snow">
+        <div className={daylight}>
+          <span className={mainBackground}>
             <h1>{this.state.weather.name}</h1>
             <p>{this.state.weather.weather[0].main}</p>
 
             <nav>{this.convertTemp(this.state.weather.main.temp)}°</nav>
+
+          <div className="date">
+            <h1>{this.getDayOfWeek()}</h1>
+            <span>Today</span>
+          </div>
           </span>
         </div>
 
