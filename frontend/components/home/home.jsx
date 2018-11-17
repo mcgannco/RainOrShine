@@ -120,6 +120,7 @@ class Home extends React.Component {
                 <li>
                   <h3>Now</h3>
                   <img src={imgSrc}></img>
+                  <span>{this.convertTemp(this.state.weather.main.temp)}°</span>
                 </li>
                 {hourlyArr.map((forecast,idx) => <HourlyItem idx={idx} key={idx} forecast={forecast}/>)}
               </ul>

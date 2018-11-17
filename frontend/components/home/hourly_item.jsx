@@ -6,6 +6,7 @@ class HourlyItem extends React.Component {
     this.state = {
     }
     this.convertTimestamp = this.convertTimestamp.bind(this);
+    this.convertTemp = this.convertTemp.bind(this);
   }
 
   convertTimestamp(timestamp) {
@@ -35,6 +36,10 @@ class HourlyItem extends React.Component {
 	return time;
 }
 
+convertTemp(degrees) {
+    return Math.round(degrees * 9/5 - 459.67)
+}
+
   render() {
     let {forecast} = this.props;
     let imgURL = forecast.weather[0].icon;
@@ -43,6 +48,7 @@ class HourlyItem extends React.Component {
       <li>
         <h3>{this.convertTimestamp(forecast.dt)}</h3>
         <img src={imgSrc}></img>
+        <span>{this.convertTemp(forecast.main.temp)}°</span>
       </li>
     )
 
