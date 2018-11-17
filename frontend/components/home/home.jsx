@@ -89,16 +89,13 @@ class Home extends React.Component {
 
 
   render() {
-
-    let weatherInfo;
-    let forecastInfo;
+    let weatherInfo =
+    <div className="loader-container">
+      <div className="lds-ripple"><div></div><div></div></div>;
+    </div>
     let mainBackground;
     let daylight;
-    if(this.state.forecast) {
-
-    }
-
-    if(this.state.weather) {
+    if(this.state.weather && this.state.forecast) {
       mainBackground = this.getMainBackground()
       daylight = this.getDayLight()
       weatherInfo = <div className="weather-container">
@@ -113,22 +110,25 @@ class Home extends React.Component {
             <h2>{this.getDayOfWeek()}</h2>
             <span>Today</span>
           </div>
+
+          <div className="hourly-forcast">
+            <div>
+              <span>RN</span>
+              <span>5pm</span>
+            </div>
+          </div>
           </span>
         </div>
-
-
+        <h1>Details</h1>
       </div>
     }
         return(
           <div>
             <div className="nav-bar">
-              <h1>Rain or Shine</h1>
+              <h1>RainOrShine</h1>
                 <img className="logo" src="images/logo.png"></img>
             </div>
-
             {weatherInfo}
-
-
           </div>
 
       )
