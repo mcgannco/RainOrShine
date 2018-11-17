@@ -1,4 +1,5 @@
 import React from 'react';
+import HourlyItem from './hourly_item';
 
 class Home extends React.Component {
   constructor(props) {
@@ -87,7 +88,6 @@ class Home extends React.Component {
     return days[n];
   }
 
-
   render() {
     let weatherInfo =
     <div className="loader-container">
@@ -96,8 +96,11 @@ class Home extends React.Component {
     let mainBackground;
     let daylight;
     if(this.state.weather && this.state.forecast) {
+      let hourlyArr = this.state.forecast.list.slice(0,10)
       mainBackground = this.getMainBackground()
       daylight = this.getDayLight()
+      let imgURL = this.state.weather.weather[0].icon
+      let imgSrc = `http://openweathermap.org/img/w/${imgURL}.png`
       weatherInfo = <div className="weather-container">
         <div className={daylight}>
           <span className={mainBackground}>
@@ -113,8 +116,13 @@ class Home extends React.Component {
 
           <div className="hourly-forcast">
             <div>
-              <span>RN</span>
-              <span>5pm</span>
+              <ul className="hourly-list">
+                <li>
+                  <h3>Now</h3>
+                  <img src={imgSrc}></img>
+                </li>
+                {hourlyArr.map((forecast,idx) => <HourlyItem idx={idx} key={idx} forecast={forecast}/>)}
+              </ul>
             </div>
           </div>
           </span>
