@@ -102,6 +102,7 @@ class Home extends React.Component {
       let imgURL = this.state.weather.weather[0].icon
       let imgSrc = `http://openweathermap.org/img/w/${imgURL}.png`
       weatherInfo = <div className="weather-container">
+        <div className="today-container">
         <div className={daylight}>
           <span className={mainBackground}>
             <h1>{this.state.weather.name}</h1>
@@ -128,11 +129,35 @@ class Home extends React.Component {
           </div>
           </span>
         </div>
-        <h1>Details</h1>
+        <div className="details-container">
+          <div className="forecast-details">
+            <h3>Details</h3>
+            <ul>
+              <li>High / Low: {this.convertTemp(this.state.weather.main.temp_max)}° / {this.convertTemp(this.state.weather.main.temp_min)}°</li>
+              <li>Sunrise: </li>
+              <li>Sunset: </li>
+              <li>Pressure: </li>
+              <li>Visibility: </li>
+              <li>Wind: </li>
+            </ul>
+          </div>
+          </div>
+          </div>
+
+          <div className="weekly-forecast">
+            <h3>5 Day Forecast</h3>
+            <ul>
+              <li><img src={imgSrc}></img></li>
+              <li><img src={imgSrc}></img></li>
+              <li><img src={imgSrc}></img></li>
+              <li><img src={imgSrc}></img></li>
+              <li><img src={imgSrc}></img></li>
+            </ul>
+          </div>
       </div>
     }
         return(
-          <div>
+          <div className="main-container">
             <div className="nav-bar">
               <h1>RainOrShine</h1>
                 <img className="logo" src="images/logo.png"></img>

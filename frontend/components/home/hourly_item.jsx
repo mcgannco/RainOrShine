@@ -7,6 +7,7 @@ class HourlyItem extends React.Component {
     }
     this.convertTimestamp = this.convertTimestamp.bind(this);
     this.convertTemp = this.convertTemp.bind(this);
+    this.getDayOfWeek = this.getDayOfWeek.bind(this);
   }
 
   convertTimestamp(timestamp) {
@@ -40,8 +41,19 @@ convertTemp(degrees) {
     return Math.round(degrees * 9/5 - 459.67)
 }
 
+getDayOfWeek(forecast) {
+  let days = {0: "Sunday", 1: "Monday",
+  2: "Tuesday", 3: "Wednesday", 4: "Thursday", 5: "Friday", 6: "Saturday"}
+  let timestamp = forecast.dt; // UNIX timestamp in seconds
+  let xx = new Date();
+  xx.setTime(timestamp*1000); // javascript timestamps are in milliseconds
+  let key = xx.getDay()
+  return days[key]
+}
+
   render() {
     let {forecast} = this.props;
+    let weekDay = this.getDayOfWeek(forecast)
     let imgURL = forecast.weather[0].icon;
     let imgSrc = `http://openweathermap.org/img/w/${imgURL}.png`
     return(
