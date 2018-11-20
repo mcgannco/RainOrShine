@@ -147,9 +147,12 @@ class Home extends React.Component {
           <div className="forecast-details">
             <h3>Details</h3>
             <ul>
-              <li>High / Low: {this.convertTemp(this.state.weather.main.temp_max)}° / {this.convertTemp(this.state.weather.main.temp_min)}°</li>
+              <li>Description:</li>
+              <li>High: {this.convertTemp(this.state.weather.main.temp_max)}°</li>
+              <li>Low: {this.convertTemp(this.state.weather.main.temp_min)}°</li>
               <li>Sunrise: </li>
               <li>Sunset: </li>
+              <li>Humidity: </li>
               <li>Pressure: </li>
               <li>Visibility: </li>
               <li>Wind: </li>
@@ -173,8 +176,20 @@ class Home extends React.Component {
         return(
           <div className="main-container">
             <div className="nav-bar">
-              <h1>RainOrShine</h1>
-                <img className="logo" src="images/logo.png"></img>
+              <div className="left-nav">
+                <nav>
+                  <section><i className="fas fa-search"></i></section>
+                  <input placeholder="Search for weather..."></input>
+                </nav>
+
+                <span>
+                  <h1>RainOrShine</h1>
+                  <img className="logo" src="images/logo.png"></img>
+                </span>
+
+              </div>
+
+
             </div>
             {weatherInfo}
           </div>
