@@ -7,7 +7,8 @@ class Home extends React.Component {
     this.state = {
       weather: null,
       forecast: null,
-      temp: "far"
+      temp: "far",
+      expand: false
     }
     this.pollWeather = this.pollWeather.bind(this);
     this.toQueryString = this.toQueryString.bind(this);
@@ -15,6 +16,7 @@ class Home extends React.Component {
     this.getMainBackground = this.getMainBackground.bind(this);
     this.getDayLight = this.getDayLight.bind(this);
     this.getDayOfWeek = this.getDayOfWeek.bind(this);
+    this.toggleExpand = this.toggleExpand.bind(this);
   }
 
   componentDidMount() {
@@ -67,7 +69,8 @@ class Home extends React.Component {
     let key = this.state.weather.weather[0].main
     let hash = {"Clouds": "clouds",
       "Snow": "snow",
-      "Rain": "rain"
+      "Rain": "rain",
+      "Haze": "haze"
     }
     if(hash[key]) {
       return hash[key]
@@ -88,6 +91,10 @@ class Home extends React.Component {
     return days[n];
   }
 
+  toggleExpand() {
+    this.setState({expand: !this.state.expand})
+  }
+
   render() {
     let weatherInfo =
     <div className="loader-container">
@@ -105,6 +112,13 @@ class Home extends React.Component {
         <div className="today-container">
         <div className={daylight}>
           <span className={mainBackground}>
+            <div className="expand">
+              <section>
+                <span onClick={this.toggleExpand} className={this.state.expand ? "hidden" : "plus"}><i className="fas fa-plus"></i></span>
+                <span onClick={this.toggleExpand} className={this.state.expand ? "minus" : "hidden"}><i className="fas fa-minus"></i></span>
+              </section>
+
+            </div>
             <h1>{this.state.weather.name}</h1>
             <p>{this.state.weather.weather[0].main}</p>
 
@@ -129,7 +143,7 @@ class Home extends React.Component {
           </div>
           </span>
         </div>
-        <div className="details-container">
+        <div className={this.state.expand ? "details-container" : "hidden"}>
           <div className="forecast-details">
             <h3>Details</h3>
             <ul>
