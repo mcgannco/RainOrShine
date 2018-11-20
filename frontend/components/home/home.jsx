@@ -146,17 +146,19 @@ class Home extends React.Component {
         <div className={this.state.expand ? "details-container" : "hidden"}>
           <div className="forecast-details">
             <h3>Details</h3>
-            <ul>
-              <li>Description:</li>
-              <li>High: {this.convertTemp(this.state.weather.main.temp_max)}°</li>
-              <li>Low: {this.convertTemp(this.state.weather.main.temp_min)}°</li>
-              <li>Sunrise: </li>
-              <li>Sunset: </li>
-              <li>Humidity: </li>
-              <li>Pressure: </li>
-              <li>Visibility: </li>
-              <li>Wind: </li>
-            </ul>
+            <span>
+              <ul>
+                <li><section>Description:</section> <section>Partly Cloudy</section></li>
+                <li><section>High:</section> <section>{this.convertTemp(this.state.weather.main.temp_max)}°</section></li>
+                <li><section>Low:</section> <section>{this.convertTemp(this.state.weather.main.temp_min)}°</section></li>
+                <li><section>Sunrise:</section> <section>6:36AM</section></li>
+                <li><section>Sunset:</section> <section>6:36AM</section></li>
+                <li><section>Humidity:</section> <section>33%</section></li>
+                <li><section>Pressure:</section> <section>14psi</section></li>
+                <li><section>Visibility:</section> <section>2 miles</section></li>
+                <li><section>Wind:</section> <section>2 mph SW</section></li>
+              </ul>
+            </span>
           </div>
           </div>
           </div>

@@ -228,8 +228,20 @@ body {
 
 .forecast-details ul {
   color: white;
-  margin-left: 4rem;
   font-size: 1rem;
+  width: 50%;
+}
+
+.forecast-details ul li {
+  display: flex;
+  justify-content: space-between;
+  margin: 5px 0px;
+}
+
+.forecast-details span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .weekly-forecast {
