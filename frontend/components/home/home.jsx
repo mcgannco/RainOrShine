@@ -18,6 +18,7 @@ class Home extends React.Component {
     this.getDayOfWeek = this.getDayOfWeek.bind(this);
     this.toggleExpand = this.toggleExpand.bind(this);
     this.getForecastDay = this.getForecastDay.bind(this);
+    this.getForecastHighLow = this.getForecastHighLow.bind(this);
   }
 
   componentDidMount() {
@@ -104,6 +105,31 @@ class Home extends React.Component {
     this.setState({expand: !this.state.expand})
   }
 
+  getForecastHighLow(day) {
+    let today = new Date(this.state.weather.dt * 1000);
+    var nextDay = new Date();
+    nextDay.setDate(today.getDate() + day);
+    let daysArr =[];
+    this.state.forecast.list.forEach(function(element) {
+      let dayDate = new Date(element.dt * 1000);
+      if(dayDate.getMonth() === nextDay.getMonth() && dayDate.getDate() === nextDay.getDate() && dayDate.getFullYear() === nextDay.getFullYear()) {
+        daysArr.push(element)
+      }
+    });;
+    let high = -Infinity;
+    let low = Infinity;
+    daysArr.forEach(function(el) {
+      if(el.main.temp_min < low) {
+        low = el.main.temp_min
+      }
+
+      if(el.main.temp_max > high) {
+        high = el.main.temp_max
+      }
+    })
+    return `${this.convertTemp(high)}° / ${this.convertTemp(low)}°`
+  }
+
   render() {
     let weatherInfo =
     <div className="loader-container">
@@ -179,24 +205,40 @@ class Home extends React.Component {
                 <span className="snow">
                   <h4>{this.getForecastDay(1)}</h4>
                   <div>Snow</div>
-                  <div>37</div>
+                  <div>{this.getForecastHighLow(1)}</div>
                 </span>
               </li>
 
               <li>
-                <span className="rain">{this.getForecastDay(2)}</span>
+                <span className="rain">
+                  <h4>{this.getForecastDay(2)}</h4>
+                  <div>Snow</div>
+                  <div>{this.getForecastHighLow(2)}</div>
+                </span>
               </li>
 
               <li>
-                <span className="haze">{this.getForecastDay(3)}</span>
+                <span className="haze">
+                  <h4>{this.getForecastDay(3)}</h4>
+                  <div>Snow</div>
+                  <div>{this.getForecastHighLow(3)}</div>
+                </span>
               </li>
 
               <li>
-                <span>{this.getForecastDay(4)}</span>
+                <span className="snow">
+                  <h4>{this.getForecastDay(4)}</h4>
+                  <div>Snow</div>
+                  <div>{this.getForecastHighLow(4)}</div>
+                </span>
               </li>
 
               <li>
-                <span>{this.getForecastDay(5)}</span>
+                <span className="clouds">
+                  <h4>{this.getForecastDay(5)}</h4>
+                  <div>Snow</div>
+                  <div>{this.getForecastHighLow(5)}</div>
+                </span>
               </li>
             </ul>
           </div>
