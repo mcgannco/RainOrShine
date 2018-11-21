@@ -333,6 +333,7 @@ body {
   align-items: center;
   border-radius: 10px;
   width: 100%;
+  height: 100%;
 }
 
 .clouds {
@@ -346,6 +347,7 @@ body {
     align-items: center;
     border-radius: 10px;
     width: 100%;
+    height: 100%;
 }
 
 .rain {
@@ -357,6 +359,7 @@ body {
   align-items: center;
   border-radius: 10px;
   width: 100%;
+  height: 100%;
 }
 
 .haze {
@@ -370,6 +373,7 @@ body {
   align-items: center;
   border-radius: 10px;
   width: 100%;
+  height: 100%;
 }
 
 @keyframes snow {

@@ -17,6 +17,7 @@ class Home extends React.Component {
     this.getDayLight = this.getDayLight.bind(this);
     this.getDayOfWeek = this.getDayOfWeek.bind(this);
     this.toggleExpand = this.toggleExpand.bind(this);
+    this.getForecastDay = this.getForecastDay.bind(this);
   }
 
   componentDidMount() {
@@ -89,6 +90,14 @@ class Home extends React.Component {
     let d = new Date();
     let n = d.getDay();
     return days[n];
+  }
+
+  getForecastDay(idx) {
+    let days = {0: "Sunday", 1: "Monday",
+    2: "Tuesday", 3: "Wednesday", 4: "Thursday", 5: "Friday", 6: "Saturday"}
+    let d = new Date();
+    let n = d.getDay();
+    return days[(n + idx) % 7];
   }
 
   toggleExpand() {
@@ -166,11 +175,27 @@ class Home extends React.Component {
           <div className="weekly-forecast">
             <h3>5 Day Forecast</h3>
             <ul>
-              <li><img src={imgSrc}></img></li>
-              <li><img src={imgSrc}></img></li>
-              <li><img src={imgSrc}></img></li>
-              <li><img src={imgSrc}></img></li>
-              <li><img src={imgSrc}></img></li>
+              <li>
+                <span className="snow">
+                  <h4>{this.getForecastDay(1)}</h4>
+                </span>
+              </li>
+
+              <li>
+                <span className="rain">{this.getForecastDay(2)}</span>
+              </li>
+
+              <li>
+                <span className="haze">{this.getForecastDay(3)}</span>
+              </li>
+
+              <li>
+                <span>{this.getForecastDay(4)}</span>
+              </li>
+
+              <li>
+                <span>{this.getForecastDay(5)}</span>
+              </li>
             </ul>
           </div>
       </div>
