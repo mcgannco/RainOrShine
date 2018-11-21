@@ -178,6 +178,8 @@ class Home extends React.Component {
               <li>
                 <span className="snow">
                   <h4>{this.getForecastDay(1)}</h4>
+                  <div>Snow</div>
+                  <div>37</div>
                 </span>
               </li>
 
