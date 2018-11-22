@@ -27,6 +27,7 @@ class Home extends React.Component {
     this.getForecastHighLow = this.getForecastHighLow.bind(this);
     this.getForecastWeather = this.getForecastWeather.bind(this);
     this.getForecastDescription = this.getForecastDescription.bind(this);
+    this.getForecastDayBackground = this.getForecastDayBackground.bind(this);
   }
 
   componentDidMount() {
@@ -76,7 +77,7 @@ class Home extends React.Component {
   }
 
   getMainBackground() {
-    if(!this.state.weather) return null
+    if(!this.state.weather || !this.state.weather.weather) return null
     let key = this.state.weather.weather[0].main
     if(this.state.types[key]) {
       return this.state.types[key]
@@ -86,7 +87,20 @@ class Home extends React.Component {
   }
 
   getDayLight() {
-    return "daylight"
+    let today = new Date(this.state.weather.dt * 1000);
+    let sunrise = new Date(this.state.weather.sys.sunrise * 1000);
+    let sunset = new Date(this.state.weather.sys.sunrise * 1000);
+    if(today < sunrise) {
+      return "night"
+      //night time
+    } else if(today < sunset) {
+      return "daylight"
+      //day time
+    } else {
+      return "twilight"
+    }
+
+
   }
 
   getDayOfWeek() {
@@ -189,7 +203,7 @@ class Home extends React.Component {
         }
       })
     })
-    
+
     if(weatherTypes.length === 1) {
       return weatherTypes[0]
     } else if (!weatherTypes.length) {
@@ -205,6 +219,44 @@ class Home extends React.Component {
         return "Partly Cloudy"
       } else {
         return daysArr[0].weather[0].main
+      }
+    }
+  }
+
+  getForecastDayBackground(day) {
+    let today = new Date(this.state.weather.dt * 1000);
+    var nextDay = new Date();
+    nextDay.setDate(today.getDate() + day);
+    let daysArr =[];
+    this.state.forecast.list.forEach(function(element) {
+      let dayDate = new Date(element.dt * 1000);
+      if(dayDate.getMonth() === nextDay.getMonth() && dayDate.getDate() === nextDay.getDate() && dayDate.getFullYear() === nextDay.getFullYear()) {
+        daysArr.push(element)
+      }
+    });;
+    let weatherTypes = [];
+    daysArr.forEach(function(el) {
+      let weatherObj = el.weather;
+      weatherObj.forEach(function(obj) {
+        if(weatherTypes.indexOf(obj.main) < 0) {
+          weatherTypes.push(obj.main)
+        }
+      })
+    })
+
+    if (!weatherTypes.length) {
+      return "weekly-forecast-default"
+    } else {
+      if(weatherTypes.indexOf("Rain") >= 0) {
+        return "weekly-forecast-rain"
+      } else if(weatherTypes.indexOf("Snow") >= 0) {
+        return "weekly-forecast-snow"
+      } else if(weatherTypes.indexOf("Haze") >= 0) {
+        return "weekly-forecast-haze"
+      } else if(weatherTypes.indexOf("Clouds") >= 0 && weatherTypes.indexOf("Clear") >= 0) {
+        return "weekly-forecast-clouds"
+      } else {
+        return "weekly-forecast-default"
       }
     }
   }
@@ -280,7 +332,7 @@ class Home extends React.Component {
           <div className="weekly-forecast">
             <h3>5 Day Forecast</h3>
             <ul>
-              <li>
+              <li className={this.getForecastDayBackground(1)}>
                 <span className={this.getForecastWeather(1)}>
                   <h4>{this.getForecastDay(1)}</h4>
                   <div>{this.getForecastDescription(1)}</div>
@@ -288,7 +340,7 @@ class Home extends React.Component {
                 </span>
               </li>
 
-              <li>
+              <li className={this.getForecastDayBackground(2)}>
                 <span className={this.getForecastWeather(2)}>
                   <h4>{this.getForecastDay(2)}</h4>
                   <div>{this.getForecastDescription(2)}</div>
@@ -296,7 +348,7 @@ class Home extends React.Component {
                 </span>
               </li>
 
-              <li>
+              <li className={this.getForecastDayBackground(3)}>
                 <span className={this.getForecastWeather(3)}>
                   <h4>{this.getForecastDay(3)}</h4>
                   <div>{this.getForecastDescription(3)}</div>
@@ -304,7 +356,7 @@ class Home extends React.Component {
                 </span>
               </li>
 
-              <li>
+              <li className={this.getForecastDayBackground(4)}>
                 <span className={this.getForecastWeather(4)}>
                   <h4>{this.getForecastDay(4)}</h4>
                   <div>{this.getForecastDescription(4)}</div>
@@ -312,7 +364,7 @@ class Home extends React.Component {
                 </span>
               </li>
 
-              <li>
+              <li className={this.getForecastDayBackground(5)}>
                 <span className={this.getForecastWeather(5)}>
                   <h4>{this.getForecastDay(5)}</h4>
                   <div>{this.getForecastDescription(5)}</div>
