@@ -8,7 +8,13 @@ class Home extends React.Component {
       weather: null,
       forecast: null,
       temp: "far",
-      expand: false
+      expand: false,
+      types : {"Clouds": "clouds",
+        "Snow": "snow",
+        "Rain": "rain",
+        "Haze": "haze",
+        "Clear" : "clear"
+      }
     }
     this.pollWeather = this.pollWeather.bind(this);
     this.toQueryString = this.toQueryString.bind(this);
@@ -19,6 +25,8 @@ class Home extends React.Component {
     this.toggleExpand = this.toggleExpand.bind(this);
     this.getForecastDay = this.getForecastDay.bind(this);
     this.getForecastHighLow = this.getForecastHighLow.bind(this);
+    this.getForecastWeather = this.getForecastWeather.bind(this);
+    this.getForecastDescription = this.getForecastDescription.bind(this);
   }
 
   componentDidMount() {
@@ -68,14 +76,10 @@ class Home extends React.Component {
   }
 
   getMainBackground() {
+    if(!this.state.weather) return null
     let key = this.state.weather.weather[0].main
-    let hash = {"Clouds": "clouds",
-      "Snow": "snow",
-      "Rain": "rain",
-      "Haze": "haze"
-    }
-    if(hash[key]) {
-      return hash[key]
+    if(this.state.types[key]) {
+      return this.state.types[key]
     } else {
       return "default"
     }
@@ -128,6 +132,81 @@ class Home extends React.Component {
       }
     })
     return `${this.convertTemp(high)}° / ${this.convertTemp(low)}°`
+  }
+
+  getForecastWeather(day) {
+    let today = new Date(this.state.weather.dt * 1000);
+    var nextDay = new Date();
+    nextDay.setDate(today.getDate() + day);
+    let daysArr =[];
+    this.state.forecast.list.forEach(function(element) {
+      let dayDate = new Date(element.dt * 1000);
+      if(dayDate.getMonth() === nextDay.getMonth() && dayDate.getDate() === nextDay.getDate() && dayDate.getFullYear() === nextDay.getFullYear()) {
+        daysArr.push(element)
+      }
+    });;
+    let weatherTypes = [];
+    daysArr.forEach(function(el) {
+      let weatherObj = el.weather;
+      weatherObj.forEach(function(obj) {
+        if(weatherTypes.indexOf(obj.main) < 0) {
+          weatherTypes.push(obj.main)
+        }
+      })
+    })
+    if(weatherTypes.includes("Snow")) {
+      return this.state.types["Snow"]
+    } else if(weatherTypes.includes("Rain")) {
+      return this.state.types["Rain"]
+    } else if(weatherTypes.includes("Clouds")) {
+      return this.state.types["Clouds"]
+    } else if(weatherTypes.includes("Haze")) {
+      return this.state.types["Haze"]
+    } else if(weatherTypes.includes("Clear")) {
+      return this.state.types["Clear"]
+    } else {
+      return "default"
+    }
+  }
+
+  getForecastDescription(day) {
+    let today = new Date(this.state.weather.dt * 1000);
+    var nextDay = new Date();
+    nextDay.setDate(today.getDate() + day);
+    let daysArr =[];
+    this.state.forecast.list.forEach(function(element) {
+      let dayDate = new Date(element.dt * 1000);
+      if(dayDate.getMonth() === nextDay.getMonth() && dayDate.getDate() === nextDay.getDate() && dayDate.getFullYear() === nextDay.getFullYear()) {
+        daysArr.push(element)
+      }
+    });;
+    let weatherTypes = [];
+    daysArr.forEach(function(el) {
+      let weatherObj = el.weather;
+      weatherObj.forEach(function(obj) {
+        if(weatherTypes.indexOf(obj.main) < 0) {
+          weatherTypes.push(obj.main)
+        }
+      })
+    })
+    
+    if(weatherTypes.length === 1) {
+      return weatherTypes[0]
+    } else if (!weatherTypes.length) {
+      return ""
+    } else {
+      if(weatherTypes.indexOf("Rain") >= 0) {
+        return "Rain"
+      } else if(weatherTypes.indexOf("Snow") >= 0) {
+        return "Snow"
+      } else if(weatherTypes.indexOf("Haze") >= 0) {
+        return "Haze"
+      } else if(weatherTypes.indexOf("Clouds") >= 0 && weatherTypes.indexOf("Clear") >= 0) {
+        return "Partly Cloudy"
+      } else {
+        return daysArr[0].weather[0].main
+      }
+    }
   }
 
   render() {
@@ -202,41 +281,41 @@ class Home extends React.Component {
             <h3>5 Day Forecast</h3>
             <ul>
               <li>
-                <span className="snow">
+                <span className={this.getForecastWeather(1)}>
                   <h4>{this.getForecastDay(1)}</h4>
-                  <div>Snow</div>
+                  <div>{this.getForecastDescription(1)}</div>
                   <div>{this.getForecastHighLow(1)}</div>
                 </span>
               </li>
 
               <li>
-                <span className="rain">
+                <span className={this.getForecastWeather(2)}>
                   <h4>{this.getForecastDay(2)}</h4>
-                  <div>Snow</div>
+                  <div>{this.getForecastDescription(2)}</div>
                   <div>{this.getForecastHighLow(2)}</div>
                 </span>
               </li>
 
               <li>
-                <span className="haze">
+                <span className={this.getForecastWeather(3)}>
                   <h4>{this.getForecastDay(3)}</h4>
-                  <div>Snow</div>
+                  <div>{this.getForecastDescription(3)}</div>
                   <div>{this.getForecastHighLow(3)}</div>
                 </span>
               </li>
 
               <li>
-                <span className="snow">
+                <span className={this.getForecastWeather(4)}>
                   <h4>{this.getForecastDay(4)}</h4>
-                  <div>Snow</div>
+                  <div>{this.getForecastDescription(4)}</div>
                   <div>{this.getForecastHighLow(4)}</div>
                 </span>
               </li>
 
               <li>
-                <span className="clouds">
+                <span className={this.getForecastWeather(5)}>
                   <h4>{this.getForecastDay(5)}</h4>
-                  <div>Snow</div>
+                  <div>{this.getForecastDescription(5)}</div>
                   <div>{this.getForecastHighLow(5)}</div>
                 </span>
               </li>
