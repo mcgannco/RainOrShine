@@ -341,10 +341,9 @@ class Home extends React.Component {
 
   searchLocation() {
     const apiKey = '4499a256d68d5af745805dd42ac9ccf1';
-    let query = this.state.query.capitalize()
-    let url = `api.openweathermap.org/data/2.5/weather?q=${query}`;
+    let query = this.state.query
+    let url = `http://api.openweathermap.org/data/2.5/weather?q=${query}`;
     url += `&APPID=${apiKey}`;
-    debugger
     this.props.requestWeather(url)
   }
 
@@ -359,7 +358,10 @@ class Home extends React.Component {
       let hourlyArr = this.state.forecast.list.slice(0,10)
       mainBackground = this.getMainBackground()
       daylight = this.getDayLight()
-      let imgURL = this.state.weather.weather[0].icon
+      let imgURL;
+      if(this.state.weather && this.state.weather.weather) {
+        imgURL = this.state.weather.weather[0].icon
+      }
       let imgSrc = `http://openweathermap.org/img/w/${imgURL}.png`
       weatherInfo = <div className="weather-container">
         <div className="today-container">
