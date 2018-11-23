@@ -240,6 +240,12 @@ body {
   margin: 5px 0px;
 }
 
+.forecast-details ul li section {
+  width: 50%;
+  display: flex;
+  justify-content: flex-start;
+}
+
 .forecast-details span {
   display: flex;
   align-items: center;

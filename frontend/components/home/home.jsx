@@ -28,6 +28,8 @@ class Home extends React.Component {
     this.getForecastWeather = this.getForecastWeather.bind(this);
     this.getForecastDescription = this.getForecastDescription.bind(this);
     this.getForecastDayBackground = this.getForecastDayBackground.bind(this);
+    this.getDuskTime = this.getDuskTime.bind(this);
+    this.getVisibility = this.getVisibility.bind(this);
   }
 
   componentDidMount() {
@@ -264,6 +266,48 @@ class Home extends React.Component {
     }
   }
 
+  getDuskTime(id) {
+    let sunrise = new Date(this.state.weather.sys.sunrise * 1000)
+    let sunset = new Date(this.state.weather.sys.sunset * 1000)
+    let d;
+    if(id === "sunset") {
+      d = sunset
+    } else {
+      d = sunrise
+    }
+    let yyyy = d.getFullYear()
+		let mm = ('0' + (d.getMonth() + 1)).slice(-2)	// Months are zero based. Add leading 0.
+		let dd = ('0' + d.getDate()).slice(-2)		// Add leading 0.
+		let hh = d.getHours()
+		let h = hh
+		let min = ('0' + d.getMinutes()).slice(-2)	// Add leading 0.
+		let ampm = 'AM'
+		let time;
+
+	if (hh > 12) {
+		h = hh - 12;
+		ampm = 'PM';
+	} else if (hh === 12) {
+		h = 12;
+		ampm = 'PM';
+	} else if (hh == 0) {
+		h = 12;
+	}
+
+	// ie: 2013-02-18, 8:35 AM
+	time = h  + `:` + min + ' ' +  ampm;
+
+  	return time;
+  }
+
+  getVisibility() {
+    let visibility = this.state.weather.visibility * 0.000621371;
+    let rounded = (Math.round( visibility * 10 ) / 10).toFixed(1);
+    return `${rounded} miles`
+
+
+  }
+
   render() {
     let weatherInfo =
     <div className="loader-container">
@@ -317,14 +361,13 @@ class Home extends React.Component {
             <h3>Details</h3>
             <span>
               <ul>
-                <li><section>Description:</section> <section>Partly Cloudy</section></li>
                 <li><section>High:</section> <section>{this.convertTemp(this.state.weather.main.temp_max)}°</section></li>
                 <li><section>Low:</section> <section>{this.convertTemp(this.state.weather.main.temp_min)}°</section></li>
-                <li><section>Sunrise:</section> <section>6:36AM</section></li>
-                <li><section>Sunset:</section> <section>6:36AM</section></li>
-                <li><section>Humidity:</section> <section>33%</section></li>
-                <li><section>Pressure:</section> <section>14psi</section></li>
-                <li><section>Visibility:</section> <section>2 miles</section></li>
+                <li><section>Sunrise:</section> <section>{this.getDuskTime("sunrise")}</section></li>
+                <li><section>Sunset:</section> <section>{this.getDuskTime("sunset")}</section></li>
+                <li><section>Humidity:</section> <section>{this.state.weather.main.humidity}%</section></li>
+                <li><section>Pressure:</section> <section>{this.state.weather.main.pressure} hPa</section></li>
+                <li><section>Visibility:</section> <section>{this.getVisibility()}</section></li>
                 <li><section>Wind:</section> <section>2 mph SW</section></li>
               </ul>
             </span>
