@@ -87,6 +87,7 @@ class Home extends React.Component {
   }
 
   getDayLight() {
+    if(!this.state.weather || !this.state.weather.sys) return null
     let today = new Date(this.state.weather.dt * 1000);
     let sunrise = new Date(this.state.weather.sys.sunrise * 1000);
     let sunset = new Date(this.state.weather.sys.sunrise * 1000);
@@ -96,8 +97,10 @@ class Home extends React.Component {
     } else if(today < sunset) {
       return "daylight"
       //day time
+    } else if(today > sunrise) {
+      return "daylight"
     } else {
-      return "twilight"
+      return "daylight"
     }
 
 
@@ -209,10 +212,10 @@ class Home extends React.Component {
     } else if (!weatherTypes.length) {
       return ""
     } else {
-      if(weatherTypes.indexOf("Rain") >= 0) {
-        return "Rain"
-      } else if(weatherTypes.indexOf("Snow") >= 0) {
+      if(weatherTypes.indexOf("Snow") >= 0) {
         return "Snow"
+      } else if(weatherTypes.indexOf("Rain") >= 0) {
+        return "Rain"
       } else if(weatherTypes.indexOf("Haze") >= 0) {
         return "Haze"
       } else if(weatherTypes.indexOf("Clouds") >= 0 && weatherTypes.indexOf("Clear") >= 0) {
@@ -247,10 +250,10 @@ class Home extends React.Component {
     if (!weatherTypes.length) {
       return "weekly-forecast-default"
     } else {
-      if(weatherTypes.indexOf("Rain") >= 0) {
-        return "weekly-forecast-rain"
-      } else if(weatherTypes.indexOf("Snow") >= 0) {
+      if(weatherTypes.indexOf("Snow") >= 0) {
         return "weekly-forecast-snow"
+      } else if(weatherTypes.indexOf("Rain") >= 0) {
+        return "weekly-forecast-rain"
       } else if(weatherTypes.indexOf("Haze") >= 0) {
         return "weekly-forecast-haze"
       } else if(weatherTypes.indexOf("Clouds") >= 0 && weatherTypes.indexOf("Clear") >= 0) {
