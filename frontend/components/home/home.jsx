@@ -158,6 +158,7 @@ class Home extends React.Component {
         high = el.main.temp_max
       }
     })
+    if(high === -Infinity || low === Infinity) return "Forecast TBD"
     return `${this.convertTemp(high)}° / ${this.convertTemp(low)}°`
   }
 
