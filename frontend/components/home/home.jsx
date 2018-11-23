@@ -30,6 +30,7 @@ class Home extends React.Component {
     this.getForecastDayBackground = this.getForecastDayBackground.bind(this);
     this.getDuskTime = this.getDuskTime.bind(this);
     this.getVisibility = this.getVisibility.bind(this);
+    this.getWind = this.getWind.bind(this);
   }
 
   componentDidMount() {
@@ -81,6 +82,13 @@ class Home extends React.Component {
   getMainBackground() {
     if(!this.state.weather || !this.state.weather.weather) return null
     let key = this.state.weather.weather[0].main
+    let today = new Date(this.state.weather.dt * 1000);
+    let sunrise = new Date(this.state.weather.sys.sunrise * 1000);
+    let sunset = new Date(this.state.weather.sys.sunrise * 1000);
+    if(today < sunrise) {
+      return "default"
+    }
+
     if(this.state.types[key]) {
       return this.state.types[key]
     } else {
@@ -304,8 +312,23 @@ class Home extends React.Component {
     let visibility = this.state.weather.visibility * 0.000621371;
     let rounded = (Math.round( visibility * 10 ) / 10).toFixed(1);
     return `${rounded} miles`
+  }
 
+  getWind() {
+    let speed = Math.floor(this.state.weather.wind.speed * 2.23694);
+    let dir = this.state.weather.wind.deg;
+    let dirName;
+    if(dir >=0 && dir<= 90) {
+      dirName = "NE"
+    } else if(dir > 90 && dir <= 180) {
+      dirName = "SE"
+    } else if (dir > 180 && dir <= 270) {
+      dirName = "SW"
+    } else {
+      dirName = "NW"
+    }
 
+    return `${dirName} ${speed} mph`
   }
 
   render() {
@@ -368,7 +391,7 @@ class Home extends React.Component {
                 <li><section>Humidity:</section> <section>{this.state.weather.main.humidity}%</section></li>
                 <li><section>Pressure:</section> <section>{this.state.weather.main.pressure} hPa</section></li>
                 <li><section>Visibility:</section> <section>{this.getVisibility()}</section></li>
-                <li><section>Wind:</section> <section>2 mph SW</section></li>
+                <li><section>Wind:</section> <section>{this.getWind()}</section></li>
               </ul>
             </span>
           </div>
