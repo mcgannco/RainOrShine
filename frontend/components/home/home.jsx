@@ -13,8 +13,9 @@ class Home extends React.Component {
         "Snow": "snow",
         "Rain": "rain",
         "Haze": "haze",
-        "Clear" : "clear"
-      }
+        "Clear" : "clear",
+      },
+      query: ""
     }
     this.pollWeather = this.pollWeather.bind(this);
     this.toQueryString = this.toQueryString.bind(this);
@@ -31,6 +32,8 @@ class Home extends React.Component {
     this.getDuskTime = this.getDuskTime.bind(this);
     this.getVisibility = this.getVisibility.bind(this);
     this.getWind = this.getWind.bind(this);
+    this.updateSearchInput = this.updateSearchInput.bind(this);
+    this.searchLocation = this.searchLocation.bind(this);
   }
 
   componentDidMount() {
@@ -332,6 +335,19 @@ class Home extends React.Component {
     return `${dirName} ${speed} mph`
   }
 
+  updateSearchInput(e) {
+    this.setState({query: e.currentTarget.value})
+  }
+
+  searchLocation() {
+    const apiKey = '4499a256d68d5af745805dd42ac9ccf1';
+    let query = this.state.query.capitalize()
+    let url = `api.openweathermap.org/data/2.5/weather?q=${query}`;
+    url += `&APPID=${apiKey}`;
+    debugger
+    this.props.requestWeather(url)
+  }
+
   render() {
     let weatherInfo =
     <div className="loader-container">
@@ -450,8 +466,8 @@ class Home extends React.Component {
             <div className="nav-bar">
               <div className="left-nav">
                 <nav>
-                  <section><i className="fas fa-search"></i></section>
-                  <input placeholder="Search for weather..."></input>
+                  <section onClick={this.searchLocation}><i className="fas fa-search"></i></section>
+                  <form onSubmit={this.searchLocation}><input value={this.state.query} onChange={this.updateSearchInput} placeholder="Search for weather..."></input></form>
                 </nav>
 
                 <span>
