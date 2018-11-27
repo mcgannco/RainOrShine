@@ -178,6 +178,8 @@ body {
   width: 100%;
   display: flex;
   justify-content: center;
+  overflow: auto;
+  overflow-y: hidden;
 }
 
 .hourly-forcast div {
@@ -220,6 +222,7 @@ body {
   display: flex;
   width: 98%;
   height: 50%;
+  min-height: 20rem;
 }
 
 .forecast-details {
@@ -263,6 +266,7 @@ body {
   width: 98%;
   align-items: center;
   height: 45%;
+  min-height: 15rem;
   background: #2c3e50; /* fallback for old browsers */
   background: -webkit-linear-gradient(to bottom, #2c3e50, #4ca1af); /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to bottom, #2c3e50, #4ca1af); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
@@ -284,6 +288,7 @@ body {
   width: 85%;
   list-style: none;
   color: #F5F5F5;
+  margin-bottom: 27px;
 }
 
 .expand {
