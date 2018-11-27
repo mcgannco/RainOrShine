@@ -122,7 +122,7 @@ class Home extends React.Component {
   getDayOfWeek() {
     let days = {0: "Sunday", 1: "Monday",
     2: "Tuesday", 3: "Wednesday", 4: "Thursday", 5: "Friday", 6: "Saturday"}
-    let d = new Date();
+    let d = new Date(this.state.weather.dt * 1000);
     let n = d.getDay();
     return days[n];
   }
@@ -130,7 +130,7 @@ class Home extends React.Component {
   getForecastDay(idx) {
     let days = {0: "Sunday", 1: "Monday",
     2: "Tuesday", 3: "Wednesday", 4: "Thursday", 5: "Friday", 6: "Saturday"}
-    let d = new Date();
+    let d = new Date(this.state.weather.dt * 1000);
     let n = d.getDay();
     return days[(n + idx) % 7];
   }
@@ -343,8 +343,11 @@ class Home extends React.Component {
     const apiKey = '4499a256d68d5af745805dd42ac9ccf1';
     let query = this.state.query
     let url = `http://api.openweathermap.org/data/2.5/weather?q=${query}`;
+    let forcasturl = `http://api.openweathermap.org/data/2.5/forecast?q=${query}`;
     url += `&APPID=${apiKey}`;
+    forcasturl += `&APPID=${apiKey}`;
     this.props.requestWeather(url)
+    this.props.requestForecast(forcasturl)
   }
 
   render() {
