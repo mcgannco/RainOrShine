@@ -38,7 +38,12 @@ class HourlyItem extends React.Component {
 }
 
 convertTemp(degrees) {
+  if(this.props.temp === true) {
     return Math.round(degrees * 9/5 - 459.67)
+  } else {
+    return Math.round(degrees - 273.15)
+  }
+
 }
 
 getDayOfWeek(forecast) {

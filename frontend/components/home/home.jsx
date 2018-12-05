@@ -7,7 +7,7 @@ class Home extends React.Component {
     this.state = {
       weather: null,
       forecast: null,
-      temp: "far",
+      temp: true,
       expand: false,
       types : {"Clouds": "clouds",
         "Snow": "snow",
@@ -34,6 +34,7 @@ class Home extends React.Component {
     this.getWind = this.getWind.bind(this);
     this.updateSearchInput = this.updateSearchInput.bind(this);
     this.searchLocation = this.searchLocation.bind(this);
+    this.changeTemp = this.changeTemp.bind(this);
   }
 
   componentDidMount() {
@@ -77,8 +78,10 @@ class Home extends React.Component {
   }
 
   convertTemp(degrees) {
-    if(this.state.temp === "far") {
+    if(this.state.temp === true) {
       return Math.round(degrees * 9/5 - 459.67)
+    } else {
+      return Math.round(degrees - 273.15)
     }
   }
 
@@ -350,6 +353,15 @@ class Home extends React.Component {
     this.props.requestForecast(forcasturl)
   }
 
+  changeTemp(prev) {
+    if(prev === this.state.temp) {
+      return null
+    } else {
+      this.setState({temp: !this.state.temp})
+    }
+
+  }
+
   render() {
     let weatherInfo =
     <div className="loader-container">
@@ -365,6 +377,10 @@ class Home extends React.Component {
       if(this.state.weather && this.state.weather.weather) {
         imgURL = this.state.weather.weather[0].icon
       }
+      let des;
+      if(this.state.weather && this.state.weather.weather[0]) {
+        des = this.state.weather.weather[0].main
+      }
       let imgSrc = `http://openweathermap.org/img/w/${imgURL}.png`
       weatherInfo = <div className="weather-container">
         <div className="today-container">
@@ -378,7 +394,7 @@ class Home extends React.Component {
 
             </div>
             <h1>{this.state.weather.name}</h1>
-            <p>{this.state.weather.weather[0].main}</p>
+            <p>{des}</p>
 
             <nav>{this.convertTemp(this.state.weather.main.temp)}°</nav>
 
@@ -395,7 +411,7 @@ class Home extends React.Component {
                   <img src={imgSrc}></img>
                   <span>{this.convertTemp(this.state.weather.main.temp)}°</span>
                 </li>
-                {hourlyArr.map((forecast,idx) => <HourlyItem idx={idx} key={idx} forecast={forecast}/>)}
+                {hourlyArr.map((forecast,idx) => <HourlyItem idx={idx} key={idx} temp={this.state.temp} forecast={forecast}/>)}
               </ul>
             </div>
           </div>
@@ -469,17 +485,32 @@ class Home extends React.Component {
         return(
           <div className="main-container">
             <div className="nav-bar">
+
               <div className="left-nav">
                 <nav>
                   <section onClick={this.searchLocation}><i className="fas fa-search"></i></section>
                   <form onSubmit={this.searchLocation}><input value={this.state.query} onChange={this.updateSearchInput} placeholder="Search for weather..."></input></form>
                 </nav>
 
+              </div>
+
+              <div className="logo-nav">
                 <span>
                   <h1>RainOrShine</h1>
                   <img className="logo" src="images/logo.png"></img>
                 </span>
+              </div>
 
+              <div className="right-nav">
+                <span className="therm-logo">
+                  <i className="fas fa-thermometer-three-quarters"></i>
+                </span>
+
+                <nav>
+                  <span onClick={() => this.changeTemp(true)} className={this.state.temp === true ? "farh-sel" : "farh"}>°F</span>
+                  <span> / </span>
+                  <span onClick={() => this.changeTemp(false)} className={this.state.temp === false ? "cel-sel" : "cel"}>°C</span>
+                </nav>
               </div>
 
 
