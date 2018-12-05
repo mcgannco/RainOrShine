@@ -342,7 +342,8 @@ class Home extends React.Component {
     this.setState({query: e.currentTarget.value})
   }
 
-  searchLocation() {
+  searchLocation(e) {
+    e.preventDefault()
     const apiKey = '4499a256d68d5af745805dd42ac9ccf1';
     let query = this.state.query
     let url = `http://api.openweathermap.org/data/2.5/weather?q=${query}`;
