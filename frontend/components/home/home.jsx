@@ -15,7 +15,8 @@ class Home extends React.Component {
         "Haze": "haze",
         "Clear" : "clear",
       },
-      query: ""
+      query: "",
+      timeZone: null
     }
     this.pollWeather = this.pollWeather.bind(this);
     this.toQueryString = this.toQueryString.bind(this);
@@ -35,6 +36,7 @@ class Home extends React.Component {
     this.updateSearchInput = this.updateSearchInput.bind(this);
     this.searchLocation = this.searchLocation.bind(this);
     this.changeTemp = this.changeTemp.bind(this);
+    this.getTimeZone = this.getTimeZone.bind(this);
   }
 
   componentDidMount() {
@@ -42,12 +44,27 @@ class Home extends React.Component {
   }
 
   componentWillReceiveProps(props) {
-    if(!this.state.weather || this.state.weather && props.weather.name !== this.state.weather.name) {
-      this.setState({weather: props.weather})
+    if(props.timeZone.zoneName && (!this.state.timeZone || this.state.timeZone.zoneName !== props.timeZone.zoneName)) {
+        this.setState({timeZone: props.timeZone})
+    } else {
+      if(!this.state.weather || this.state.weather && props.weather.name !== this.state.weather.name) {
+        this.setState({weather: props.weather})
+        this.getTimeZone(props.weather.coord.lon, props.weather.coord.lat, props.weather.dt)
+      }
+      if(!this.state.forecast && props.forecast.city || this.state.forecast && props.forecast.city.name !== this.state.forecast.city.name) {
+        this.setState({forecast: props.forecast})
+      }
     }
-    if(!this.state.forecast && props.forecast.city || this.state.forecast && props.forecast.city.name !== this.state.forecast.city.name) {
-      this.setState({forecast: props.forecast})
-    }
+  }
+
+  getTimeZone(lon, lat, timestamp) {
+    let test = `http://api.timezonedb.com/v2.1/get-time-zone?key=LBSV8861FAAQ&format=json&by=position&lat=${lat}&lng=${lon}&time=${timestamp}`
+    let url = "https://maps.googleapis.com/maps/api/timezone/json?"
+    let location = `location=${lat}, ${lon}`
+    let time = `&timestamp=${timestamp}`
+    let keystr = `&key=123456`
+    let finalUrl = url + location + time + keystr
+    this.props.requestTimeZone(test)
   }
 
 
@@ -128,6 +145,7 @@ class Home extends React.Component {
   getDayOfWeek() {
     let days = {0: "Sunday", 1: "Monday",
     2: "Tuesday", 3: "Wednesday", 4: "Thursday", 5: "Friday", 6: "Saturday"}
+    debugger
     let d = new Date(this.state.weather.dt * 1000);
     let n = d.getDay();
     return days[n];
@@ -373,7 +391,7 @@ class Home extends React.Component {
     </div>
     let mainBackground;
     let daylight;
-    if(this.state.weather && this.state.forecast) {
+    if(this.state.weather && this.state.forecast && this.state.timeZone) {
       let hourlyArr = this.state.forecast.list.slice(0,10)
       mainBackground = this.getMainBackground()
       daylight = this.getDayLight()

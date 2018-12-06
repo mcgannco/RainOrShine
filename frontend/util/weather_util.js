@@ -11,3 +11,10 @@ export const fetchForecast = (forecast) => (
     url: `${forecast}`,
   })
 );
+
+export const fetchTimeZone = (url) => (
+  $.ajax({
+    method: 'GET',
+    url: `${url}`,
+  })
+);
