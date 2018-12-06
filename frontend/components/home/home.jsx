@@ -379,8 +379,12 @@ class Home extends React.Component {
         imgURL = this.state.weather.weather[0].icon
       }
       let des;
-      if(this.state.weather && this.state.weather.weather[0]) {
+      if(this.state.weather && this.state.weather.weather) {
         des = this.state.weather.weather[0].main
+      }
+      let tmp;
+      if(this.state.weather && this.state.weather.main) {
+        tmp = this.state.weather.main.temp
       }
       let imgSrc = `http://openweathermap.org/img/w/${imgURL}.png`
       weatherInfo = <div className="weather-container">
@@ -397,7 +401,7 @@ class Home extends React.Component {
             <h1>{this.state.weather.name}</h1>
             <p>{des}</p>
 
-            <nav>{this.convertTemp(this.state.weather.main.temp)}°</nav>
+            <nav>{this.convertTemp(tmp)}°</nav>
 
           <div className="date">
             <h2>{this.getDayOfWeek()}</h2>
@@ -410,7 +414,7 @@ class Home extends React.Component {
                 <li>
                   <h3>Now</h3>
                   <img src={imgSrc}></img>
-                  <span>{this.convertTemp(this.state.weather.main.temp)}°</span>
+                  <span>{this.convertTemp(tmp)}°</span>
                 </li>
                 {hourlyArr.map((forecast,idx) => <HourlyItem idx={idx} key={idx} temp={this.state.temp} forecast={forecast}/>)}
               </ul>
@@ -439,47 +443,50 @@ class Home extends React.Component {
 
           <div className="weekly-forecast">
             <h3>5 Day Forecast</h3>
-            <ul>
-              <li className={this.getForecastDayBackground(1)}>
-                <span className={this.getForecastWeather(1)}>
-                  <h4>{this.getForecastDay(1)}</h4>
-                  <div>{this.getForecastDescription(1)}</div>
-                  <div>{this.getForecastHighLow(1)}</div>
-                </span>
-              </li>
+            <section>
+              <ul className="weekly-list">
+                <li className={this.getForecastDayBackground(1)}>
+                  <span className={this.getForecastWeather(1)}>
+                    <h4>{this.getForecastDay(1)}</h4>
+                    <div>{this.getForecastDescription(1)}</div>
+                    <div>{this.getForecastHighLow(1)}</div>
+                  </span>
+                </li>
 
-              <li className={this.getForecastDayBackground(2)}>
-                <span className={this.getForecastWeather(2)}>
-                  <h4>{this.getForecastDay(2)}</h4>
-                  <div>{this.getForecastDescription(2)}</div>
-                  <div>{this.getForecastHighLow(2)}</div>
-                </span>
-              </li>
+                <li className={this.getForecastDayBackground(2)}>
+                  <span className={this.getForecastWeather(2)}>
+                    <h4>{this.getForecastDay(2)}</h4>
+                    <div>{this.getForecastDescription(2)}</div>
+                    <div>{this.getForecastHighLow(2)}</div>
+                  </span>
+                </li>
 
-              <li className={this.getForecastDayBackground(3)}>
-                <span className={this.getForecastWeather(3)}>
-                  <h4>{this.getForecastDay(3)}</h4>
-                  <div>{this.getForecastDescription(3)}</div>
-                  <div>{this.getForecastHighLow(3)}</div>
-                </span>
-              </li>
+                <li className={this.getForecastDayBackground(3)}>
+                  <span className={this.getForecastWeather(3)}>
+                    <h4>{this.getForecastDay(3)}</h4>
+                    <div>{this.getForecastDescription(3)}</div>
+                    <div>{this.getForecastHighLow(3)}</div>
+                  </span>
+                </li>
 
-              <li className={this.getForecastDayBackground(4)}>
-                <span className={this.getForecastWeather(4)}>
-                  <h4>{this.getForecastDay(4)}</h4>
-                  <div>{this.getForecastDescription(4)}</div>
-                  <div>{this.getForecastHighLow(4)}</div>
-                </span>
-              </li>
+                <li className={this.getForecastDayBackground(4)}>
+                  <span className={this.getForecastWeather(4)}>
+                    <h4>{this.getForecastDay(4)}</h4>
+                    <div>{this.getForecastDescription(4)}</div>
+                    <div>{this.getForecastHighLow(4)}</div>
+                  </span>
+                </li>
 
-              <li className={this.getForecastDayBackground(5)}>
-                <span className={this.getForecastWeather(5)}>
-                  <h4>{this.getForecastDay(5)}</h4>
-                  <div>{this.getForecastDescription(5)}</div>
-                  <div>{this.getForecastHighLow(5)}</div>
-                </span>
-              </li>
-            </ul>
+                <li className={this.getForecastDayBackground(5)}>
+                  <span className={this.getForecastWeather(5)}>
+                    <h4>{this.getForecastDay(5)}</h4>
+                    <div>{this.getForecastDescription(5)}</div>
+                    <div>{this.getForecastHighLow(5)}</div>
+                  </span>
+                </li>
+              </ul>
+            </section>
+
           </div>
       </div>
     }

@@ -62,6 +62,7 @@ body {
 
 .logo-nav {
   width: 38%;
+  margin-left: 30px;
 }
 
 .logo-nav span {
@@ -346,6 +347,23 @@ body {
   border-radius: 10px;
 }
 
+.weekly-list::-webkit-scrollbar {
+    background: #383838;
+    border-radius: 7px;
+}
+.weekly-list::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+}
+
+.weekly-list::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+    background: black;
+    background: -webkit-linear-gradient(to bottom, grey, black);
+    background: linear-gradient(to bottom, grey, black);
+}
+
 .weekly-forecast h3 {
   display: flex;
   justify-content: center;
@@ -353,13 +371,23 @@ body {
   color: white;
 }
 
-.weekly-forecast ul {
+.weekly-forecast section {
   display: flex;
-  justify-content: space-between;
-  width: 85%;
+  justify-content: center;
+  width: 100%;
   list-style: none;
   color: #F5F5F5;
   margin-bottom: 27px;
+  height: 100%;
+}
+
+.weekly-list {
+  display: flex;
+  justify-content: space-between;
+  overflow: auto;
+  overflow-y: hidden;
+  min-width: 400px;
+  height: 100%;
 }
 
 .expand {
@@ -386,7 +414,7 @@ body {
 .weekly-forecast-default {
   width: 10rem;
   min-width: 50px;
-  height: 10rem;
+  height: 100%;
   background: #2980b9; /* fallback for old browsers */
   background: -webkit-linear-gradient(to top, #2980b9, #6dd5fa, #ffffff); /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to top, #2980b9, #6dd5fa, #ffffff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
@@ -395,12 +423,15 @@ body {
   flex-direction: column;
   justify-content: center;
   border-radius: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  min-width: 125px;
 }
 
 .weekly-forecast-rain {
   width: 10rem;
   min-width: 50px;
-  height: 10rem;
+  height: 100%;
   background: #4b79a1; /* fallback for old browsers */
   background: -webkit-linear-gradient(to top, #4b79a1, #283e51); /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to top, #4b79a1, #283e51); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
@@ -409,6 +440,9 @@ body {
   flex-direction: column;
   justify-content: center;
   border-radius: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  min-width: 125px;
 }
 
 .weekly-forecast-clouds {
@@ -421,8 +455,11 @@ body {
   justify-content: center;
   border-radius: 10px;
   width: 10rem;
-  height: 10rem;
+  height: 100%;
   min-width: 50px;
+  margin-left: 10px;
+  margin-right: 10px;
+  min-width: 125px;
 }
 
 .weekly-forecast-snow {
@@ -435,8 +472,11 @@ body {
   justify-content: center;
   border-radius: 10px;
   width: 10rem;
-  height: 10rem;
+  height: 100%;
   min-width: 50px;
+  margin-left: 10px;
+  margin-right: 10px;
+  min-width: 125px;
 }
 
 .weekly-forecast-haze {
@@ -449,8 +489,11 @@ body {
   justify-content: center;
   border-radius: 10px;
   width: 10rem;
-  height: 10rem;
+  min-width: 125px;
+  height: 100%;
   min-width: 50px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 /* weather background conditionals */
@@ -615,5 +658,25 @@ body {
     width: 300px;
     height: 300px;
     opacity: 0;
+  }
+}
+
+@media (max-width: 583px) {
+  .left-nav {
+    display: none;
+  }
+}
+
+@media (max-width: 814px) {
+  .details-container {
+    display: none;
+  }
+
+  .minus {
+    display: none;
+  }
+
+  .plus {
+    display: none;
   }
 }
