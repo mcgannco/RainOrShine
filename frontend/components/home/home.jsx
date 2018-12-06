@@ -92,7 +92,11 @@ class Home extends React.Component {
     let sunrise = new Date(this.state.weather.sys.sunrise * 1000);
     let sunset = new Date(this.state.weather.sys.sunrise * 1000);
     if(today < sunrise) {
-      return "default"
+      if(this.state.types[key]) {
+        return this.state.types[key]
+      } else {
+        return "default"
+      }
     }
 
     if(this.state.types[key]) {
@@ -112,7 +116,6 @@ class Home extends React.Component {
       //night time
     } else if(today < sunset) {
       return "daylight"
-      //day time
     } else if(today > sunrise) {
       return "daylight"
     } else {
