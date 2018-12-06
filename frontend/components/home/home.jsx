@@ -145,10 +145,12 @@ class Home extends React.Component {
   getDayOfWeek() {
     let days = {0: "Sunday", 1: "Monday",
     2: "Tuesday", 3: "Wednesday", 4: "Thursday", 5: "Friday", 6: "Saturday"}
-    debugger
     let d = new Date(this.state.weather.dt * 1000);
     let n = d.getDay();
-    return days[n];
+    let gmt = this.state.weather.dt + this.state.timeZone.gmtOffset
+    let localTime = new Date(gmt*1000)
+    let day = localTime.getDay();
+    return days[day];
   }
 
   getForecastDay(idx) {
