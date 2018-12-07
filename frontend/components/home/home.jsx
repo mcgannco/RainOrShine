@@ -138,8 +138,6 @@ class Home extends React.Component {
     } else {
       return "daylight"
     }
-
-
   }
 
   getDayOfWeek() {
@@ -149,7 +147,7 @@ class Home extends React.Component {
     let n = d.getDay();
     let gmt = this.state.weather.dt + this.state.timeZone.gmtOffset
     let localTime = new Date(gmt*1000)
-    let day = localTime.getDay();
+    let day = localTime.getUTCDay();
     return days[day];
   }
 
@@ -158,7 +156,11 @@ class Home extends React.Component {
     2: "Tuesday", 3: "Wednesday", 4: "Thursday", 5: "Friday", 6: "Saturday"}
     let d = new Date(this.state.weather.dt * 1000);
     let n = d.getDay();
-    return days[(n + idx) % 7];
+    let gmt = this.state.weather.dt + this.state.timeZone.gmtOffset
+    let localTime = new Date(gmt*1000)
+    let day = localTime.getUTCDay();
+
+    return days[(day + idx) % 7];
   }
 
   toggleExpand() {
@@ -305,20 +307,20 @@ class Home extends React.Component {
   }
 
   getDuskTime(id) {
-    let sunrise = new Date(this.state.weather.sys.sunrise * 1000)
-    let sunset = new Date(this.state.weather.sys.sunset * 1000)
+    let sunrise = new Date((this.state.weather.sys.sunrise + this.state.timeZone.gmtOffset) * 1000)
+    let sunset = new Date((this.state.weather.sys.sunset + this.state.timeZone.gmtOffset) * 1000)
     let d;
     if(id === "sunset") {
       d = sunset
     } else {
       d = sunrise
     }
-    let yyyy = d.getFullYear()
-		let mm = ('0' + (d.getMonth() + 1)).slice(-2)	// Months are zero based. Add leading 0.
-		let dd = ('0' + d.getDate()).slice(-2)		// Add leading 0.
-		let hh = d.getHours()
+    let yyyy = d.getUTCFullYear()
+		let mm = ('0' + (d.getUTCMonth() + 1)).slice(-2)	// Months are zero based. Add leading 0.
+		let dd = ('0' + d.getUTCDate()).slice(-2)		// Add leading 0.
+		let hh = d.getUTCHours()
 		let h = hh
-		let min = ('0' + d.getMinutes()).slice(-2)	// Add leading 0.
+		let min = ('0' + d.getUTCMinutes()).slice(-2)	// Add leading 0.
 		let ampm = 'AM'
 		let time;
 
@@ -439,7 +441,7 @@ class Home extends React.Component {
                   <img src={imgSrc}></img>
                   <span>{this.convertTemp(tmp)}°</span>
                 </li>
-                {hourlyArr.map((forecast,idx) => <HourlyItem idx={idx} key={idx} temp={this.state.temp} forecast={forecast}/>)}
+                {hourlyArr.map((forecast,idx) => <HourlyItem idx={idx} key={idx} temp={this.state.temp} offset={this.state.timeZone.gmtOffset} forecast={forecast}/>)}
               </ul>
             </div>
           </div>
