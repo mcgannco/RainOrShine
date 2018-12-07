@@ -125,9 +125,9 @@ class Home extends React.Component {
 
   getDayLight() {
     if(!this.state.weather || !this.state.weather.sys) return null
-    let today = new Date(this.state.weather.dt * 1000);
-    let sunrise = new Date(this.state.weather.sys.sunrise * 1000);
-    let sunset = new Date(this.state.weather.sys.sunrise * 1000);
+    let today = new Date((this.state.weather.dt + this.state.timeZone.gmtOffset) * 1000);
+    let sunrise = new Date((this.state.weather.sys.sunrise + this.state.timeZone.gmtOffset) * 1000);
+    let sunset = new Date((this.state.weather.sys.sunrise + this.state.timeZone.gmtOffset) * 1000);
     if(today < sunrise) {
       return "night"
       //night time
