@@ -110,7 +110,11 @@ class Home extends React.Component {
     let sunset = new Date(this.state.weather.sys.sunrise * 1000);
     if(today < sunrise) {
       if(this.state.types[key]) {
+        if(this.state.types[key] === "clear") {
+          return "default"
+      } else {
         return this.state.types[key]
+      }
       } else {
         return "default"
       }
@@ -128,6 +132,7 @@ class Home extends React.Component {
     let today = new Date((this.state.weather.dt + this.state.timeZone.gmtOffset) * 1000);
     let sunrise = new Date((this.state.weather.sys.sunrise + this.state.timeZone.gmtOffset) * 1000);
     let sunset = new Date((this.state.weather.sys.sunrise + this.state.timeZone.gmtOffset) * 1000);
+
     if(today < sunrise) {
       return "night"
       //night time

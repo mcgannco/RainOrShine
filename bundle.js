@@ -345,7 +345,11 @@ function (_React$Component) {
 
       if (today < sunrise) {
         if (this.state.types[key]) {
-          return this.state.types[key];
+          if (this.state.types[key] === "clear") {
+            return "default";
+          } else {
+            return this.state.types[key];
+          }
         } else {
           return "default";
         }
