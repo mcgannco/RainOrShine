@@ -58,7 +58,7 @@ class Home extends React.Component {
   }
 
   getTimeZone(lon, lat, timestamp) {
-    let test = `http://api.timezonedb.com/v2.1/get-time-zone?key=LBSV8861FAAQ&format=json&by=position&lat=${lat}&lng=${lon}&time=${timestamp}`
+    let test = `https://api.timezonedb.com/v2.1/get-time-zone?key=LBSV8861FAAQ&format=json&by=position&lat=${lat}&lng=${lon}&time=${timestamp}`
     let url = "https://maps.googleapis.com/maps/api/timezone/json?"
     let location = `location=${lat}, ${lon}`
     let time = `&timestamp=${timestamp}`
@@ -69,8 +69,8 @@ class Home extends React.Component {
 
 
   pollWeather(location) {
-    let url = 'http://api.openweathermap.org/data/2.5/weather?';
-    let forcasturl = 'http://api.openweathermap.org/data/2.5/forecast?';
+    let url = 'https://api.openweathermap.org/data/2.5/weather?';
+    let forcasturl = 'https://api.openweathermap.org/data/2.5/forecast?';
     const params = {
       lat: location.coords.latitude,
       lon: location.coords.longitude
@@ -371,8 +371,8 @@ class Home extends React.Component {
     e.preventDefault()
     const apiKey = '4499a256d68d5af745805dd42ac9ccf1';
     let query = this.state.query
-    let url = `http://api.openweathermap.org/data/2.5/weather?q=${query}`;
-    let forcasturl = `http://api.openweathermap.org/data/2.5/forecast?q=${query}`;
+    let url = `https://api.openweathermap.org/data/2.5/weather?q=${query}`;
+    let forcasturl = `https://api.openweathermap.org/data/2.5/forecast?q=${query}`;
     url += `&APPID=${apiKey}`;
     forcasturl += `&APPID=${apiKey}`;
     this.props.requestWeather(url)
@@ -411,7 +411,7 @@ class Home extends React.Component {
       if(this.state.weather && this.state.weather.main) {
         tmp = this.state.weather.main.temp
       }
-      let imgSrc = `http://openweathermap.org/img/w/${imgURL}.png`
+      let imgSrc = `https://openweathermap.org/img/w/${imgURL}.png`
       weatherInfo = <div className="weather-container">
         <div className="today-container">
         <div className={daylight}>
