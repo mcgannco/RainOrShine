@@ -287,7 +287,7 @@ function (_React$Component) {
   }, {
     key: "getTimeZone",
     value: function getTimeZone(lon, lat, timestamp) {
-      var test = "http://api.timezonedb.com/v2.1/get-time-zone?key=LBSV8861FAAQ&format=json&by=position&lat=".concat(lat, "&lng=").concat(lon, "&time=").concat(timestamp);
+      var test = "https://api.timezonedb.com/v2.1/get-time-zone?key=LBSV8861FAAQ&format=json&by=position&lat=".concat(lat, "&lng=").concat(lon, "&time=").concat(timestamp);
       var url = "https://maps.googleapis.com/maps/api/timezone/json?";
       var location = "location=".concat(lat, ", ").concat(lon);
       var time = "&timestamp=".concat(timestamp);
@@ -298,8 +298,8 @@ function (_React$Component) {
   }, {
     key: "pollWeather",
     value: function pollWeather(location) {
-      var url = 'http://api.openweathermap.org/data/2.5/weather?';
-      var forcasturl = 'http://api.openweathermap.org/data/2.5/forecast?';
+      var url = 'https://api.openweathermap.org/data/2.5/weather?';
+      var forcasturl = 'https://api.openweathermap.org/data/2.5/forecast?';
       var params = {
         lat: location.coords.latitude,
         lon: location.coords.longitude
@@ -650,8 +650,8 @@ function (_React$Component) {
       e.preventDefault();
       var apiKey = '4499a256d68d5af745805dd42ac9ccf1';
       var query = this.state.query;
-      var url = "http://api.openweathermap.org/data/2.5/weather?q=".concat(query);
-      var forcasturl = "http://api.openweathermap.org/data/2.5/forecast?q=".concat(query);
+      var url = "https://api.openweathermap.org/data/2.5/weather?q=".concat(query);
+      var forcasturl = "https://api.openweathermap.org/data/2.5/forecast?q=".concat(query);
       url += "&APPID=".concat(apiKey);
       forcasturl += "&APPID=".concat(apiKey);
       this.props.requestWeather(url);
@@ -703,7 +703,7 @@ function (_React$Component) {
           tmp = this.state.weather.main.temp;
         }
 
-        var imgSrc = "http://openweathermap.org/img/w/".concat(imgURL, ".png");
+        var imgSrc = "https://openweathermap.org/img/w/".concat(imgURL, ".png");
         weatherInfo = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "weather-container"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
