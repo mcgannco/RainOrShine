@@ -976,7 +976,7 @@ function (_React$Component) {
       var forecast = this.props.forecast;
       var weekDay = this.getDayOfWeek(forecast);
       var imgURL = forecast.weather[0].icon;
-      var imgSrc = "http://openweathermap.org/img/w/".concat(imgURL, ".png");
+      var imgSrc = "https://openweathermap.org/img/w/".concat(imgURL, ".png");
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, this.convertTimestamp(forecast.dt)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: imgSrc
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, this.convertTemp(forecast.main.temp), "\xB0"));

@@ -14,7 +14,7 @@ class HourlyItem extends React.Component {
 
     let gmt = timestamp + this.props.offset
     let localTime = new Date(gmt*1000)
-    
+
 		let yyyy = localTime.getUTCFullYear(),
 		mm = ('0' + (localTime.getUTCMonth() + 1)).slice(-2),	// Months are zero based. Add leading 0.
 		dd = ('0' + localTime.getUTCDate()).slice(-2),			// Add leading 0.
@@ -63,7 +63,7 @@ getDayOfWeek(forecast) {
     let {forecast} = this.props;
     let weekDay = this.getDayOfWeek(forecast)
     let imgURL = forecast.weather[0].icon;
-    let imgSrc = `http://openweathermap.org/img/w/${imgURL}.png`
+    let imgSrc = `https://openweathermap.org/img/w/${imgURL}.png`
     return(
       <li>
         <h3>{this.convertTimestamp(forecast.dt)}</h3>
